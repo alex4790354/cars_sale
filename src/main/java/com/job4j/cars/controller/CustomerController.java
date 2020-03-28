@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/cars/customer")
+@RequestMapping("/customer")
 public class CustomerController {
 
 	private CustomerService customerService;
@@ -29,7 +29,7 @@ public class CustomerController {
 		// add to the spring model
 		theModel.addAttribute("customers", theCustomers);
 		
-		return "nonjpa/customers/list-customers";
+		return "customers/list-customers";
 	}
 	
 	@GetMapping("/showFormForAdd")
@@ -40,11 +40,12 @@ public class CustomerController {
 		
 		theModel.addAttribute("customer", theCustomer);
 		
-		return "nonjpa/customers/customers-form";
+		return "customers/customers-form";
 	}
 
 	@GetMapping("/showFormForUpdate")
-	public String showFormForUpdate(@RequestParam("customerId") int theId, Model theModel) {
+	public String showFormForUpdate(@RequestParam("customerId") int theId,
+									Model theModel) {
 		
 		// get the customer from the service
 		Customer theCustomer = customerService.findById(theId);
@@ -53,7 +54,7 @@ public class CustomerController {
 		theModel.addAttribute("customer", theCustomer);
 		
 		// send over to our form
-		return "nonjpa/customers/customers-form";
+		return "customers/customers-form";
 	}
 	
 	
@@ -64,7 +65,7 @@ public class CustomerController {
 		customerService.save(theCustomer);
 		
 		// use a redirect to prevent duplicate submissions
-		return "redirect:/cars/customer/list";
+		return "redirect:/customer/list";
 	}
 	
 	
@@ -74,8 +75,8 @@ public class CustomerController {
 		// delete the customer
 		customerService.deleteById(theId);
 		
-		// redirect to /cars/list
-		return "redirect:/cars/customer/list";
+		// redirect to /carsjpa/list
+		return "redirect:/customer/list";
 		
 	}
 }
