@@ -41,10 +41,10 @@ LOCK TABLES `customer` WRITE;
 /*!40000 ALTER TABLE `customer` DISABLE KEYS */;
 
 INSERT INTO `customer` VALUES
-	(1,'David','Adams','david@job4j.com'),
-	(2,'John','Doe','john@job4j.com'),
-	(3,'Ajay','Rao','ajay@job4j.com'),
-	(4,'Mary','Public','mary@job4j.com'),
+	(1,'David','Adams', 'david@job4j.com'),
+	(2,'John','Doe',    'john@job4j.com'),
+	(3,'Ajay','Rao',    'ajay@job4j.com'),
+	(4,'Mary','Public', 'mary@job4j.com'),
 	(5,'Maxwell','Dixon','max@job4j.com');
 
 /*!40000 ALTER TABLE `customer` ENABLE KEYS */;
