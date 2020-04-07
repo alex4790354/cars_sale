@@ -9,10 +9,10 @@ public interface CarsBrandService {
 
     public List<CarsBrand> findAll();
 
-    public CarsBrand findById(int theId);
+    public CarsBrand findById(int pId);
 
-    public void save(CarsBrand theEmployee);
+    public void save(CarsBrand pEmployee);
 
-    public void deleteById(int theId);
+    public void deleteById(int pId);
 
 }

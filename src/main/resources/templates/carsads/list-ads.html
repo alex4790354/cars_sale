@@ -29,9 +29,10 @@
 	<table class="table table-bordered table-striped">
 		<thead class="thead-dark">
 			<tr>
-				<th>Brand_ID</th>
+				<th>car ID</th>
+				<th>BrandID</th>
 				<th>Brand.Name</th>
-				<th>Model_Id</th>
+				<th>Model</th>
 				<th>Action</th>
 			</tr>
 		</thead>
@@ -39,10 +40,11 @@
 		<tbody>
 			<tr th:each="tempCarsAd : ${carsads}">
 			
-				<td th:text="${tempCarsAd.carsBrandId}" />
+				<td th:text="${tempCarsAd.id}" />
+				<td th:text="${tempCarsAd.getCarsBrand().getId()}" />
 				<td th:text="${tempCarsAd.carsBrand.name}" />
-				<td th:text="${tempCarsAd.carsModelId}" />
-				
+				<td th:text="${tempCarsAd.carsModel.name}" />
+
 				<td>
 					<!-- Add "update" button/link -->
 					<a th:href="@{/carsad/showFormForUpdate(carsAdId=${tempCarsAd.id})}"

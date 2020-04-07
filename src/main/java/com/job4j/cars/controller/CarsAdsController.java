@@ -4,6 +4,8 @@ import com.job4j.cars.entity.CarsAd;
 import com.job4j.cars.entity.CarsBrand;
 import com.job4j.cars.service.CarsAdsService;
 import com.job4j.cars.service.CarsBrandService;
+import com.job4j.cars.service.CarsModelService;
+import jdk.nashorn.internal.runtime.NumberToString;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,46 +18,53 @@ public class CarsAdsController {
 
 	private CarsAdsService carsAdsService;
 	private CarsBrandService carsBrandService;
+	private CarsModelService carsModelService;
 
-	public CarsAdsController(CarsAdsService theCarsAdsService, CarsBrandService theCarsBrandService) {
-		carsAdsService = theCarsAdsService;
-		carsBrandService = theCarsBrandService;
+	public CarsAdsController(CarsAdsService pCarsAdsService, CarsBrandService pCarsBrandService, CarsModelService pCarsModelService) {
+		carsAdsService = pCarsAdsService;
+		carsBrandService = pCarsBrandService;
+		carsModelService = pCarsModelService;
 	}
 	
 	// add mapping for "/list"
 
 	@GetMapping("/list")
-	public String listCustomers(Model theModel) {
+	public String listCustomers(Model pModel) {
 		
 		// get customers from db
-		List<CarsAd> theCarsAds = carsAdsService.findAll();
-		
 		// add to the spring model
-		theModel.addAttribute("carsads", theCarsAds);
+		pModel.addAttribute("carsads", carsAdsService.findAll());
 		
 		return "carsads/list-ads";
 	}
 	
 	@GetMapping("/showFormForAdd")
-	public String showFormForAdd(Model theModel) {
+	public String showFormForAdd(Model pModel) {
 		
 		// create model attribute to bind form data
-		CarsAd theCarsAd = new CarsAd();
-		theModel.addAttribute("carsad", theCarsAd);
+		//CarsAd pCarsAd = new CarsAd();
+		pModel.addAttribute("carsad", new CarsAd());
 
-        theModel.addAttribute("carsbrands", carsBrandService.findAll());
+        pModel.addAttribute("carsbrands", carsBrandService.findAll());
+
+		//pModel.addAttribute("carsmodels", carsModelService.findAll());
 		
 		return "carsads/ads-form";
 	}
 
 	@GetMapping("/showFormForUpdate")
-	public String showFormForUpdate(@RequestParam("carsAdId") int theId, Model theModel) {
+	public String showFormForUpdate(@RequestParam("carsAdId") int pId, Model pModel) {
 		
 		// get the customer from the service
 		// set customer as a model attribute to pre-populate the form
-		theModel.addAttribute("carsad", carsAdsService.findById(theId));
+		CarsAd carsAd = carsAdsService.findById(pId);
+		pModel.addAttribute("carsad", carsAd);
 
-		theModel.addAttribute("carsbrands", carsBrandService.findAll());
+		pModel.addAttribute("carsbrands", carsBrandService.findAll());
+
+		pModel.addAttribute("carsmodels", carsModelService.findByBrandId(carsAd.getCarsBrandId()));
+		//pModel.addAttribute("carsmodels", carsModelService.findAll());
+
 		
 		// send over to our form
 		return "carsads/ads-form";
@@ -63,10 +72,10 @@ public class CarsAdsController {
 	
 	
 	@PostMapping("/save")
-	public String saveCustomer(@ModelAttribute("carsad") CarsAd theCarsAd) {
+	public String saveCustomer(@ModelAttribute("carsad") CarsAd pCarsAd) {
 		
-		// save the customer
-		carsAdsService.save(theCarsAd);
+		// save p customer
+		carsAdsService.save(pCarsAd);
 		
 		// use a redirect to prevent duplicate submissions
 		return "redirect:/carsad/list";
@@ -74,10 +83,10 @@ public class CarsAdsController {
 	
 	
 	@GetMapping("/delete")
-	public String delete(@RequestParam("carsAdId") int theId) {
+	public String delete(@RequestParam("carsAdId") int pId) {
 		
 		// delete the customer
-		carsAdsService.deleteById(theId);
+		carsAdsService.deleteById(pId);
 		
 		// redirect to /carsjpa/list
 		return "redirect:/carsad/list";

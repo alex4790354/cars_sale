@@ -21,10 +21,14 @@ public class CarsAd {
     @Column(name="cars_model_id")
     private int  carsModelId;
 
-    /*@Column(name="cars_body_type_id")
-    private int  carsBodyTypeId;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cars_model_id", insertable = false, updatable = false)
+    private CarsModel carsModel;
 
-    @Column(name="cars_transmission_id")
+    /*@Column(name="cars_body_type_id")
+    private int  carsBodyTypeId;*/
+
+    /*@Column(name="cars_transmission_id")
     private int  carsTransmissionId;
 
     @Column(name="cars_engine_type_id")
@@ -87,109 +91,6 @@ public class CarsAd {
         this.status = status;*/
     }
 
-    /*public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getCarsBrandId() {
-        return carsBrandId;
-    }
-
-    public void setCarsBrandId(int carsBrandId) {
-        this.carsBrandId = carsBrandId;
-    }
-
-    public int getCarsModelId() {
-        return carsModelId;
-    }
-
-    public void setCarsModelId(int carsModelId) {
-        this.carsModelId = carsModelId;
-    }
-
-    public int getCarsBodyTypeId() {
-        return carsBodyTypeId;
-    }
-
-    public void setCarsBodyTypeId(int carsBodyTypeId) {
-        this.carsBodyTypeId = carsBodyTypeId;
-    }
-
-    public int getCarsTransmissionId() {
-        return carsTransmissionId;
-    }
-
-    public void setCarsTransmissionId(int carsTransmissionId) {
-        this.carsTransmissionId = carsTransmissionId;
-    }
-
-    public int getCarsEngineTypeId() {
-        return carsEngineTypeId;
-    }
-
-    public void setCarsEngineTypeId(int carsEngineTypeId) {
-        this.carsEngineTypeId = carsEngineTypeId;
-    }
-
-    public int getCarsDriveUnitId() {
-        return carsDriveUnitId;
-    }
-
-    public void setCarsDriveUnitId(int carsDriveUnitId) {
-        this.carsDriveUnitId = carsDriveUnitId;
-    }
-
-    public int getMileage() {
-        return mileage;
-    }
-
-    public void setMileage(int mileage) {
-        this.mileage = mileage;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getUserId() {
-        return userId;
-    }
-
-    public void setUserId(int userId) {
-        this.userId = userId;
-    }
-
-    public int getPhotoId() {
-        return photoId;
-    }
-
-    public void setPhotoId(int photoId) {
-        this.photoId = photoId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setCarsBrand(CarsBrand carsBrand) {
-        this.carsBrand = carsBrand;
-    }
-
-    public CarsBrand getCarsBrand() {
-        return carsBrand;
-    } */
 
     public int getId() {
         return id;
@@ -203,16 +104,13 @@ public class CarsAd {
         return carsBrandId;
     }
 
+    public String getCarsBrandIdString() {
+        return String.valueOf(carsBrandId);
+    }
+
+
     public void setCarsBrandId(int carsBrandId) {
         this.carsBrandId = carsBrandId;
-    }
-
-    public CarsBrand getCarsBrand() {
-        return carsBrand;
-    }
-
-    public void setCarsBrand(CarsBrand carsBrand) {
-        this.carsBrand = carsBrand;
     }
 
     public int getCarsModelId() {
@@ -223,5 +121,20 @@ public class CarsAd {
         this.carsModelId = carsModelId;
     }
 
+    public void setCarsBrand(CarsBrand carsBrand) {
+        this.carsBrand = carsBrand;
+    }
+
+    public CarsBrand getCarsBrand() {
+        return carsBrand;
+    }
+
+    public void setCarsModel(CarsModel carsModel) {
+        this.carsModel = carsModel;
+    }
+
+    public CarsModel getCarsModel() {
+        return carsModel;
+    }
 
 }

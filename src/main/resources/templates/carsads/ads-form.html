@@ -26,18 +26,25 @@
 			<!-- Add hidden form field to handle update -->
 			<input type="hidden" th:field="*{id}" />
 
-			<!--<input type="text" th:field="*{carsBrandId}" class="form-control mb-4 col-4" placeholder="BrandName">-->
+			<!--<input type="text" th:field="*{carsBrandId}" class="form-control mb-4 col-4" placeholder="BrandName">  ${pCarsBrand.id == carsBrand.id}   -->
 
-			<label>BrandName:</label>
+			<label>Brand:</label>
 			<select th:field="*{carsBrandId}" class="form-control mb-4 col-4" name="carsBrandId">
-				<option th:each="carsbrand : ${carsbrands}"
-						th:value="${carsbrand.id}"
-						th:selected="${carsbrand.id.equals(carsBrandId)}"
-						th:text="${carsbrand.name}">Each</option>
+							<option th:each="lCarsBrand : ${carsbrands}"
+						th:value="${lCarsBrand.id}"
+						th:selected="${lCarsBrand.id.equals(carsBrandId)}"
+						th:text="${lCarsBrand.name}">Each</option>
 			</select>
 
+			<label>Model:</label>
+			<select th:field="*{carsModelId}" class="form-control mb-4 col-4" name="carsBrandId">
+				<option th:each="carsmodel : ${carsmodels}"
+						th:value="${carsmodel.id}"
+						th:selected="${carsmodel.id.equals(carsModelId)}"
+						th:text="${carsmodel.name}">Each</option>
+			</select>
 
-			<input type="text" th:field="*{carsModelId}" class="form-control mb-4 col-4" placeholder="Last name">
+			<!--<input type="text" th:field="*{carsModelId}" class="form-control mb-4 col-4" placeholder="Last name">-->
 
 <!--			<input type="" th:field="*{email}" class="form-control mb-4 col-4" placeholder="Email">-->
 				
