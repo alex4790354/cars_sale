@@ -25,19 +25,35 @@ public class CarsAd {
     @JoinColumn(name = "cars_model_id", insertable = false, updatable = false)
     private CarsModel carsModel;
 
-    /*@Column(name="cars_body_type_id")
-    private int  carsBodyTypeId;*/
+    @Column(name="cars_body_type_id")
+    private int  carsBodyTypeId;
 
-    /*@Column(name="cars_transmission_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cars_body_type_id", insertable = false, updatable = false)
+    private CarsBodyType carsBodyType;
+
+    @Column(name="cars_transmission_id")
     private int  carsTransmissionId;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cars_transmission_id", insertable = false, updatable = false)
+    private CarsTransmission carsTransmission;
 
     @Column(name="cars_engine_type_id")
     private int  carsEngineTypeId;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cars_engine_type_id", insertable = false, updatable = false)
+    private CarsEngineType carsEngineType;
+
     @Column(name="cars_drive_unit_id")
     private int  carsDriveUnitId;
 
-    @Column(name="mileage")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "cars_drive_unit_id", insertable = false, updatable = false)
+    private CarsDriveUnit carsDriveUnit;
+
+    /*@Column(name="mileage")
     private int mileage;
 
     @Column(name="description")
@@ -57,34 +73,44 @@ public class CarsAd {
     public CarsAd() {
     }
 
-    public CarsAd(int  id, int  carsBrandId, int  carsModelId) {
-                /*, int  carsBodyTypeId,  int  carsTransmissionId, int  carsEngineTypeId, int  carsDriveUnitId,
-                  int  mileage,  String description, int userId, int photoId, String status) {*/
+    public CarsAd(int id,
+                  int carsBrandId,
+                  int carsModelId,
+                  int carsBodyTypeId,
+                  int carsTransmissionId,
+                  int carsEngineTypeId,
+                  int carsDriveUnitId) {
+                /*  int  mileage,  String description, int userId, int photoId, String status) {*/
         this.id = id;
         this.carsBrandId = carsBrandId;
         this.carsModelId = carsModelId;
-        /*this.carsBodyTypeId = carsBodyTypeId;
+        this.carsBodyTypeId = carsBodyTypeId;
         this.carsTransmissionId = carsTransmissionId;
         this.carsEngineTypeId = carsEngineTypeId;
         this.carsDriveUnitId = carsDriveUnitId;
-        this.mileage = mileage;
+        /*this.mileage = mileage;
         this.description = description;
         this.userId = userId;
         this.photoId = photoId;
         this.status = status;*/
     }
 
-    public CarsAd(int  carsBrandId,  int  carsModelId) {
+    public CarsAd(int carsBrandId,
+                  int carsModelId,
+                  int carsBodyTypeId,
+                  int carsTransmissionId,
+                  int carsEngineTypeId,
+                  int carsDriveUnitId) {
                   /*,int  carsBodyTypeId,
                   int  carsTransmissionId, int  carsEngineTypeId, int  carsDriveUnitId, int  mileage,
                   String description, int userId, int photoId, String status) {*/
         this.carsBrandId = carsBrandId;
         this.carsModelId = carsModelId;
-        /*this.carsBodyTypeId = carsBodyTypeId;
+        this.carsBodyTypeId = carsBodyTypeId;
         this.carsTransmissionId = carsTransmissionId;
         this.carsEngineTypeId = carsEngineTypeId;
         this.carsDriveUnitId = carsDriveUnitId;
-        this.mileage = mileage;
+        /*this.mileage = mileage;
         this.description = description;
         this.userId = userId;
         this.photoId = photoId;
@@ -135,6 +161,70 @@ public class CarsAd {
 
     public CarsModel getCarsModel() {
         return carsModel;
+    }
+
+    public int getCarsBodyTypeId() {
+        return carsBodyTypeId;
+    }
+
+    public void setCarsBodyTypeId(int carsBodyTypeId) {
+        this.carsBodyTypeId = carsBodyTypeId;
+    }
+
+    public void setCarsBodyType(CarsBodyType carsBodyType) {
+        this.carsBodyType = carsBodyType;
+    }
+
+    public CarsBodyType getCarsBodyType() {
+        return carsBodyType;
+    }
+
+    public int getCarsTransmissionId() {
+        return carsTransmissionId;
+    }
+
+    public void setCarsTransmissionId(int carsTransmissionId) {
+        this.carsTransmissionId = carsTransmissionId;
+    }
+
+    public void setCarsTransmission(CarsTransmission carsTransmission) {
+        this.carsTransmission = carsTransmission;
+    }
+
+    public CarsTransmission getCarsTransmission() {
+        return carsTransmission;
+    }
+
+    public int getCarsEngineTypeId() {
+        return carsEngineTypeId;
+    }
+
+    public void setCarsEngineTypeId(int carsEngineTypeId) {
+        this.carsEngineTypeId = carsEngineTypeId;
+    }
+
+    public void setCarsEngineType(CarsEngineType carsEngineType) {
+        this.carsEngineType = carsEngineType;
+    }
+
+    public CarsEngineType getCarsEngineType() {
+        return carsEngineType;
+    }
+
+    public int getCarsDriveUnitId() {
+        return carsDriveUnitId;
+    }
+
+    public void setCarsDriveUnitId(int carsDriveUnitId) {
+        this.carsDriveUnitId = carsDriveUnitId;
+    }
+
+    public void setCarsDriveUnit(CarsDriveUnit carsDriveUnit) {
+        this.carsDriveUnit = carsDriveUnit;
+    }
+
+    public CarsDriveUnit getCarsDriveUnit() {
+        return carsDriveUnit;
     }
 
 }

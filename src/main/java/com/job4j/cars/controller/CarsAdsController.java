@@ -2,10 +2,8 @@ package com.job4j.cars.controller;
 
 import com.job4j.cars.entity.CarsAd;
 import com.job4j.cars.entity.CarsBrand;
-import com.job4j.cars.service.CarsAdsService;
-import com.job4j.cars.service.CarsBrandService;
-import com.job4j.cars.service.CarsModelService;
-import jdk.nashorn.internal.runtime.NumberToString;
+import com.job4j.cars.entity.CarsTransmission;
+import com.job4j.cars.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,11 +17,25 @@ public class CarsAdsController {
 	private CarsAdsService carsAdsService;
 	private CarsBrandService carsBrandService;
 	private CarsModelService carsModelService;
+	private CarsBodyTypeService carsBodyTypeService;
+	private CarsTransmissionService carsTransmissionService;
+	private CarsEngineTypeService carsEngineTypeService;
+	private CarsDriveUnitService carsDriveUnitService;
 
-	public CarsAdsController(CarsAdsService pCarsAdsService, CarsBrandService pCarsBrandService, CarsModelService pCarsModelService) {
+	public CarsAdsController(CarsAdsService pCarsAdsService,
+							 CarsBrandService pCarsBrandService,
+							 CarsModelService pCarsModelService,
+							 CarsBodyTypeService pCarsBodyTypeService,
+							 CarsTransmissionService pCarsTransmissionService,
+							 CarsEngineTypeService pCarsEngineTypeService,
+							 CarsDriveUnitService pCarsDriveUnitService) {
 		carsAdsService = pCarsAdsService;
 		carsBrandService = pCarsBrandService;
 		carsModelService = pCarsModelService;
+		carsBodyTypeService = pCarsBodyTypeService;
+		carsTransmissionService = pCarsTransmissionService;
+		carsEngineTypeService = pCarsEngineTypeService;
+		carsDriveUnitService = pCarsDriveUnitService;
 	}
 	
 	// add mapping for "/list"
@@ -33,7 +45,7 @@ public class CarsAdsController {
 		
 		// get customers from db
 		// add to the spring model
-		pModel.addAttribute("carsads", carsAdsService.findAll());
+		pModel.addAttribute("carsAds", carsAdsService.findAll());
 		
 		return "carsads/list-ads";
 	}
@@ -43,11 +55,13 @@ public class CarsAdsController {
 		
 		// create model attribute to bind form data
 		//CarsAd pCarsAd = new CarsAd();
-		pModel.addAttribute("carsad", new CarsAd());
-
-        pModel.addAttribute("carsbrands", carsBrandService.findAll());
-
-		//pModel.addAttribute("carsmodels", carsModelService.findAll());
+		pModel.addAttribute("carsAd", new CarsAd());
+        pModel.addAttribute("carsBrands", carsBrandService.findAll());
+		pModel.addAttribute("carsModels", carsModelService.findAll());
+		pModel.addAttribute("carsBodyTypes", carsBodyTypeService.findAll());
+		pModel.addAttribute("carsTransmissions", carsTransmissionService.findAll());
+		pModel.addAttribute("carsEngineTypes", carsEngineTypeService.findAll());
+		pModel.addAttribute("carsDriveUnit", carsDriveUnitService.findAll());
 		
 		return "carsads/ads-form";
 	}
@@ -58,13 +72,13 @@ public class CarsAdsController {
 		// get the customer from the service
 		// set customer as a model attribute to pre-populate the form
 		CarsAd carsAd = carsAdsService.findById(pId);
-		pModel.addAttribute("carsad", carsAd);
-
-		pModel.addAttribute("carsbrands", carsBrandService.findAll());
-
-		pModel.addAttribute("carsmodels", carsModelService.findByBrandId(carsAd.getCarsBrandId()));
-		//pModel.addAttribute("carsmodels", carsModelService.findAll());
-
+		pModel.addAttribute("carsAd", carsAd);
+		pModel.addAttribute("carsBrands", carsBrandService.findAll());
+		pModel.addAttribute("carsModels", carsModelService.findByBrandId(carsAd.getCarsBrandId()));
+		pModel.addAttribute("carsBodyTypes", carsBodyTypeService.findAll());
+		pModel.addAttribute("carsTransmissions", carsTransmissionService.findAll());
+		pModel.addAttribute("carsEngineTypes", carsEngineTypeService.findAll());
+		pModel.addAttribute("carsDriveUnits", carsDriveUnitService.findAll());
 		
 		// send over to our form
 		return "carsads/ads-form";
@@ -91,6 +105,7 @@ public class CarsAdsController {
 		// redirect to /carsjpa/list
 		return "redirect:/carsad/list";
 	}
+
 }
 
 

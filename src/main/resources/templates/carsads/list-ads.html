@@ -9,7 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
-	<title>Customers Directory</title>
+	<title>Cars for sale</title>
 </head>
 
 <body>
@@ -30,20 +30,26 @@
 		<thead class="thead-dark">
 			<tr>
 				<th>car ID</th>
-				<th>BrandID</th>
-				<th>Brand.Name</th>
+				<th>Brand</th>
 				<th>Model</th>
+				<th>Body Type</th>
+				<th>Transmission</th>
+				<th>Engine Type</th>
+				<th>Drive Unit</th>
 				<th>Action</th>
 			</tr>
 		</thead>
 		
 		<tbody>
-			<tr th:each="tempCarsAd : ${carsads}">
+			<tr th:each="tempCarsAd : ${carsAds}">
 			
 				<td th:text="${tempCarsAd.id}" />
-				<td th:text="${tempCarsAd.getCarsBrand().getId()}" />
 				<td th:text="${tempCarsAd.carsBrand.name}" />
 				<td th:text="${tempCarsAd.carsModel.name}" />
+				<td th:text="${tempCarsAd.carsBodyType.name}" />
+				<td th:text="${tempCarsAd.carsTransmission.name}" />
+				<td th:text="${tempCarsAd.carsEngineType.name}" />
+				<td th:text="${tempCarsAd.carsDriveUnit.name}" />
 
 				<td>
 					<!-- Add "update" button/link -->
