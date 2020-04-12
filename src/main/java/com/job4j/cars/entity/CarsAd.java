@@ -1,6 +1,7 @@
 package com.job4j.cars.entity;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name="cars_ad")
@@ -53,7 +54,7 @@ public class CarsAd {
     @JoinColumn(name = "cars_drive_unit_id", insertable = false, updatable = false)
     private CarsDriveUnit carsDriveUnit;
 
-    /*@Column(name="mileage")
+    @Column(name="mileage")
     private int mileage;
 
     @Column(name="description")
@@ -65,8 +66,11 @@ public class CarsAd {
     @Column(name="photo_id")
     private int photoId;
 
+    @OneToMany(mappedBy = "carsAd", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private Set<CarsPhoto> carsPhotos;
+
     @Column(name="status")
-    private String status;*/
+    private String status;
 
 
     // Normal constractor, getters and setters:
@@ -79,8 +83,13 @@ public class CarsAd {
                   int carsBodyTypeId,
                   int carsTransmissionId,
                   int carsEngineTypeId,
-                  int carsDriveUnitId) {
-                /*  int  mileage,  String description, int userId, int photoId, String status) {*/
+                  int carsDriveUnitId,
+                  int  mileage,
+                  String description,
+                  int userId,
+                  int photoId,
+                  String status,
+                  Set<CarsPhoto> carsPhotos) {
         this.id = id;
         this.carsBrandId = carsBrandId;
         this.carsModelId = carsModelId;
@@ -88,11 +97,12 @@ public class CarsAd {
         this.carsTransmissionId = carsTransmissionId;
         this.carsEngineTypeId = carsEngineTypeId;
         this.carsDriveUnitId = carsDriveUnitId;
-        /*this.mileage = mileage;
+        this.mileage = mileage;
         this.description = description;
         this.userId = userId;
         this.photoId = photoId;
-        this.status = status;*/
+        this.status = status;
+        this.carsPhotos = carsPhotos;
     }
 
     public CarsAd(int carsBrandId,
@@ -100,21 +110,24 @@ public class CarsAd {
                   int carsBodyTypeId,
                   int carsTransmissionId,
                   int carsEngineTypeId,
-                  int carsDriveUnitId) {
-                  /*,int  carsBodyTypeId,
-                  int  carsTransmissionId, int  carsEngineTypeId, int  carsDriveUnitId, int  mileage,
-                  String description, int userId, int photoId, String status) {*/
+                  int carsDriveUnitId,
+                  int  mileage,
+                  String description,
+                  int userId, int photoId,
+                  String status,
+                  Set<CarsPhoto> carsPhotos) {
         this.carsBrandId = carsBrandId;
         this.carsModelId = carsModelId;
         this.carsBodyTypeId = carsBodyTypeId;
         this.carsTransmissionId = carsTransmissionId;
         this.carsEngineTypeId = carsEngineTypeId;
         this.carsDriveUnitId = carsDriveUnitId;
-        /*this.mileage = mileage;
+        this.mileage = mileage;
         this.description = description;
         this.userId = userId;
         this.photoId = photoId;
-        this.status = status;*/
+        this.status = status;
+        this.carsPhotos = carsPhotos;
     }
 
 
@@ -227,4 +240,51 @@ public class CarsAd {
         return carsDriveUnit;
     }
 
+    public int getMileage() {
+        return mileage;
+    }
+
+    public void setMileage(int mileage) {
+        this.mileage = mileage;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getPhotoId() {
+        return photoId;
+    }
+
+    public void setPhotoId(int photoId) {
+        this.photoId = photoId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Set<CarsPhoto> getCarsPhotos() {
+        return carsPhotos;
+    }
+
+    public void setCarsPhotos(Set<CarsPhoto> carsPhotos) {
+        this.carsPhotos = carsPhotos;
+    }
 }

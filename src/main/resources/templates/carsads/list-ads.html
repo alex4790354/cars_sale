@@ -16,13 +16,13 @@
 
 <div class="container">
 
-	<h3>Customers Directory</h3>
+	<h3>Cars for sale</h3>
 	<hr>
 	
 	<!-- Add a button -->
 	<a th:href="@{/carsad/showFormForAdd}"
 		class="btn btn-primary btn-sm mb-3">
-		Add customers
+		Sale your car
 	</a>
 
 	
@@ -36,6 +36,8 @@
 				<th>Transmission</th>
 				<th>Engine Type</th>
 				<th>Drive Unit</th>
+				<th>Mileage</th>
+				<th>Photo</th>
 				<th>Action</th>
 			</tr>
 		</thead>
@@ -50,13 +52,26 @@
 				<td th:text="${tempCarsAd.carsTransmission.name}" />
 				<td th:text="${tempCarsAd.carsEngineType.name}" />
 				<td th:text="${tempCarsAd.carsDriveUnit.name}" />
+				<td th:text="${tempCarsAd.mileage}" />
+				<td>
+					<img src="../../static/images/cars/1.jpg"
+						 th:attr="src='/images/cars/' + ${tempCarsAd.photoId} + '.jpg', title=${tempCarsAd.carsModel.name},
+							with='100px', height='100px'" />
+
+				</td>
 
 				<td>
+					<!-- Add "update" button/link -->
+					<a th:href="@{/carsad/photo-upload(carsAdId=${tempCarsAd.id})}"
+					   class="btn btn-secondary btn-sm">
+						Add photo
+					</a> <br/>
+
 					<!-- Add "update" button/link -->
 					<a th:href="@{/carsad/showFormForUpdate(carsAdId=${tempCarsAd.id})}"
 					   class="btn btn-info btn-sm">
 						Update
-					</a>
+					</a> <br/>
 					
 					<!-- Add "delete" button/link -->					
 					<a th:href="@{/carsad/delete(carsAdId=${tempCarsAd.id})}"

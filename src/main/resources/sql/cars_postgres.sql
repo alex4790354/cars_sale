@@ -105,13 +105,13 @@ INSERT INTO cars_heating (name) VALUES ('mirrors');
 INSERT INTO cars_heating (name) VALUES ('rear window');
 INSERT INTO cars_heating (name) VALUES ('steering wheel');*/
 
-CREATE TABLE cars_photos (
+CREATE TABLE cars_photo (
    id              SERIAL,
    ad_id           INTEGER,
 CONSTRAINT cars_photos_pk PRIMARY KEY (id) --REFERENCES cars_ad(id)
 );
 
-INSERT INTO cars_photos(id) VALUES(0);
+INSERT INTO cars_photo(id) VALUES(0);
 
 
 CREATE TABLE cars_ad (
@@ -125,11 +125,12 @@ CREATE TABLE cars_ad (
    mileage               INTEGER,
    description           CHARACTER VARYING(200),
    user_id               INTEGER REFERENCES customer(id),
-   photo_id              INTEGER REFERENCES cars_photos DEFAULT 0,
+   photo_id              INTEGER,
    status                CHARACTER VARYING(5) DEFAULT 'Y',         -- Y - for sale, N - NOT for sale. Can be M - moderator, H - hold, VIP etc.
    inserted_date         TIMESTAMP,
     CONSTRAINT cars_ad_pk PRIMARY KEY (id)
 );
+
 INSERT INTO cars_ad(cars_brand_id, cars_model_id, cars_body_type_id, cars_transmission_id, cars_engine_type_id, cars_drive_unit_id, mileage, description, user_id, photo_id, inserted_date) VALUES (1,1,2,1,1,1,1000 ,'Descr-1', 1, 0, CURRENT_TIMESTAMP(0));
 INSERT INTO cars_ad(cars_brand_id, cars_model_id, cars_body_type_id, cars_transmission_id, cars_engine_type_id, cars_drive_unit_id, mileage, description, user_id, photo_id, inserted_date) VALUES (1,2,5,2,2,2,20000,'Descr-2', 1, 0, CURRENT_TIMESTAMP(0));
 INSERT INTO cars_ad(cars_brand_id, cars_model_id, cars_body_type_id, cars_transmission_id, cars_engine_type_id, cars_drive_unit_id, mileage, description, user_id, photo_id, inserted_date) VALUES (1,3,4,3,3,3,30000,'Descr-3', 1, 0, CURRENT_TIMESTAMP(0));
@@ -139,6 +140,19 @@ INSERT INTO cars_ad(cars_brand_id, cars_model_id, cars_body_type_id, cars_transm
 INSERT INTO cars_ad(cars_brand_id, cars_model_id, cars_body_type_id, cars_transmission_id, cars_engine_type_id, cars_drive_unit_id, mileage, description, user_id, photo_id, inserted_date) VALUES (3,7,1,3,2,1,70000,'Descr-7', 1, 0, CURRENT_TIMESTAMP(0));
 INSERT INTO cars_ad(cars_brand_id, cars_model_id, cars_body_type_id, cars_transmission_id, cars_engine_type_id, cars_drive_unit_id, mileage, description, user_id, photo_id, inserted_date) VALUES (3,8,2,4,3,2,80000,'Descr-8', 1, 0, CURRENT_TIMESTAMP(0));
 INSERT INTO cars_ad(cars_brand_id, cars_model_id, cars_body_type_id, cars_transmission_id, cars_engine_type_id, cars_drive_unit_id, mileage, description, user_id, photo_id, inserted_date) VALUES (3,9,3,1,3,2,90000,'Descr-9', 1, 0, CURRENT_TIMESTAMP(0));
+
+
+ALTER TABLE cars_photo ADD CONSTRAINT cars_photo_fk1  FOREIGN KEY  (ad_id) REFERENCES cars_ad(id);
+
+INSERT INTO cars_photo(ad_id) VALUES(1);
+INSERT INTO cars_photo(ad_id) VALUES(1);
+INSERT INTO cars_photo(ad_id) VALUES(1);
+INSERT INTO cars_photo(ad_id) VALUES(2);
+INSERT INTO cars_photo(ad_id) VALUES(2);
+
+UPDATE cars_ad SET photo_id = 1 WHERE id = 1;
+UPDATE cars_ad SET photo_id = 5 WHERE id = 2;
+
 
 
 CREATE TABLE cars_ad_heating_details (
