@@ -8,42 +8,69 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <title>Car's photo</title>
 </head>
 
 <body>
 
-<div th:if="${uploadedFile}">
-    <h2> Uploaded File Details </h2>
-    <table>
-        <tr>
-            <td th:text="${uploadedFile.fileName}">File Name</td><br>
-            <td th:text="${uploadedFile.mime}">File Type:</td><br>
-            <td th:text="${uploadedFile.url}">URL :</td>
-        </tr>
-    </table>
+
+<div class="container">
+    <div class="row">
+        <!--        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-10">-->
+        <div class="col-12">
+            <h4> Upload new photo:</h4>
+        </div>
+        <form method="POST" enctype="multipart/form-data" action="/carsad/photo-upload?adid=0"
+              th:action="@{/carsad/photo-upload(adid=${adid})}">
+            <!--<th:block th:if="${adid > 0}">
+                <input type="hidden" th:field="*{adid}"/>
+            </th:block>-->
+            <div class="col-12">
+                <input type="file" name="file"/>
+            </div>
+            <div class="col-12">
+                <input type="submit" class="btn btn-info btn-sm" value="Upload"/>
+            </div>
+        </form>
+    </div>
+
+    <div class="row">
+        <th:block th:if="${adid > 0}">
+            <div th:each="vCarsPhoto : ${carsPhotos}">
+                <div class="col-2">
+                    <img th:attr="src='/images/cars/' + ${vCarsPhoto.getID()} + '.jpg', title='Enlarge',with='100px', height='100px'"
+                         alt="Alt" src="../../static/images/cars/1.jpg"/>
+                </div>
+            </div>
+        </th:block>
+    </div>
+
+    <div class="row">
+        <div class="col-12">
+
+            <th:block th:if="${adid eq null}">
+                adid = null
+            </th:block>
+            <th:block th:if="${adid > 0}">
+                adid not 0
+            </th:block>
+
+            <th:block th:if="${uploadedFile}">
+                <h5> Uploaded photo:</h5>
+                <div class="row" th:text="${uploadedFile.fileName}">File Name</div>
+                <div class="row" th:text="${uploadedFile.mime}">File Type:</div>
+                <div class="row" th:text="${uploadedFile.url}">URL :</div>
+            </th:block>
+
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-10 col-xl-11">
+                photo123456
+            </div>
+        </div>
+    </div>
 </div>
-<div>
-    <h2> Uploaded New File </h2>
-    <form method="POST" enctype="multipart/form-data" action="/carsad/photo-upload">
-        <table>
-            <tr><td>File to upload 1:</td><td><input type="file" name="file" /></td></tr>
-            <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
-        </table>
-    </form>
-
-    <form action="#" th:action="@{carsad/photo-upload2}" th:object="${carsAd}" method="POST">
-        <table>
-            <tr><td>File to upload 1:</td><td><input type="file" name="file" /></td></tr>
-            <tr><td></td><td><input type="submit" value="Upload" /></td></tr>
-        </table>
-    </form>
-</div>
-
-
-
 
 </body>
 </html>

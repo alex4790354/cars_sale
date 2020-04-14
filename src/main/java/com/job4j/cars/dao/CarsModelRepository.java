@@ -10,13 +10,8 @@ import java.util.List;
 
 public interface CarsModelRepository extends JpaRepository<CarsModel, Integer> {
 
-    // no need to write any code!
-
     // add a method to sort by last name
     public List<CarsModel> findAll();
-
-    //@Query("from CarsModel c where c.brandId = :brnId")
-    //public List<CarsModel> findByBrandId(String brandId);
 
     //@Query("select c from CarsModel c where c.brandId = ?1")
     List<CarsModel> findByBrandId(int brandId);

@@ -1,7 +1,9 @@
 package com.job4j.cars.controller;
 
+import com.job4j.cars.entity.CarsPhoto;
 import com.job4j.cars.entity.FileMetaData;
 import com.job4j.cars.exception.FileStorageException;
+import com.job4j.cars.service.CarsPhotoService;
 import com.job4j.cars.service.FileStorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -16,13 +18,23 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 @Controller
 @RequestMapping("/carsad")
 public class FileUploadController extends PageController{
 
-    @Autowired
-    FileStorageService fileStorageService;
+    /*@Autowired
+    FileStorageService fileStorageService;*/
+
+    //final
+    private FileStorageService fileStorageService;
+    private CarsPhotoService carsPhotoService;
+
+    public FileUploadController(FileStorageService fileStorageService, CarsPhotoService carsPhotoService) {
+        this.fileStorageService = fileStorageService;
+        this.carsPhotoService = carsPhotoService;
+    }
 
     /**
      * Controller to display the file upload form on the frontend.
@@ -30,9 +42,18 @@ public class FileUploadController extends PageController{
      * @return
      */
     @GetMapping("/photo-upload")
-    public String uploadFile(final Model model){
+    public String uploadFile(@RequestParam("adid") int adid, final Model model) {
+        try {
+            List<CarsPhoto> carsPhotos = carsPhotoService.findByAdId(adid);
+            model.addAttribute("carsPhotos", carsPhotos);
+            model.addAttribute("adid", adid);
+        } catch (Exception e) {
+            model.addAttribute("error", "Unable to get ad_id. You can't load photo.");
+            model.addAttribute("adid", 0);
+        }
         return "carsads/uploadPhoto";
     }
+
 
     /**
      * POST method to accept the incoming file in the application.This method is designed to accept
@@ -42,7 +63,8 @@ public class FileUploadController extends PageController{
      * @return succes page
      */
     @PostMapping("/photo-upload")
-    public String uploadFile(@RequestParam("file") MultipartFile file, RedirectAttributes redirectAttributes, Model model){
+    public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("adid") int adid,
+                             RedirectAttributes redirectAttributes, Model model) {
 
         try {
              FileMetaData data = fileStorageService.store(file);
@@ -53,12 +75,18 @@ public class FileUploadController extends PageController{
              data.setUrl(vFileDownloadUrl);
              model.addAttribute("uploadedFile", data);
 
+            List<CarsPhoto> carsPhotos = carsPhotoService.findByAdId(adid);
+            model.addAttribute("carsPhotos", carsPhotos);
+            model.addAttribute("adid", adid);
+
         } catch (FileStorageException e) {
              model.addAttribute("error", "Unable to store the file");
+             model.addAttribute("adid", 0);
              return "carsads/uploadPhoto";
         }
         return "carsads/uploadPhoto";
     }
+
 
     /*
      * Controller to allow customer to download the file by passing the file name as the

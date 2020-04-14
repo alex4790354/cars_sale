@@ -5,6 +5,7 @@ import com.job4j.cars.dao.CarsPhotoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,6 +25,20 @@ public class CarsPhotoServiceImpl implements CarsPhotoService {
         return carsPhotoRepository.findAll();
     }
 
+    @Override
+    public List<CarsPhoto> findByAdId(int theAdId) {
+        List<CarsPhoto> resultOptional = carsPhotoRepository.findByAdId(theAdId);
+
+        List<CarsPhoto> result = new ArrayList<>();
+
+        if (resultOptional == null) {
+            result.add(new CarsPhoto(0, null));
+        } else {
+            result = resultOptional;
+        }
+
+        return result;
+    }
 
     @Override
     public CarsPhoto findById(int pId) {

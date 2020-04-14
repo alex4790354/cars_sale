@@ -8,6 +8,7 @@ import java.util.List;
 public interface CarsPhotoRepository extends JpaRepository<CarsPhoto, Integer> {
 
     // add a method to sort by last name
-    //public List<CarsPhoto> findAll();
-	
+    public List<CarsPhoto> findByAdId(int theAdId);
+
+
 }

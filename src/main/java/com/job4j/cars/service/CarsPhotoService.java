@@ -8,6 +8,8 @@ import java.util.List;
 public interface CarsPhotoService {
 
 	public List<CarsPhoto> findAll();
+
+	public List<CarsPhoto> findByAdId(int theAdId);
 	
 	public CarsPhoto findById(int theId);
 	
