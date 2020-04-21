@@ -19,34 +19,57 @@
 
 <div class="container">
     <div class="row">
-        <!--        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-10">-->
-        <div class="col-12">
-            <h4> Upload new photo:</h4>
+        <div class="col-4">
+
+
+            <!-- All small photos -->
+
+            <th:block th:if="${adid > 0}">
+                <div th:each="vCarsPhoto : ${carsPhotos}">
+                    <div class="row">
+                        <a th:href="@{/carsad/photo-upload(adid=${adid}, photoid=${vCarsPhoto.getID()})}">
+                            <img th:attr="src='/img/' + ${vCarsPhoto.getID()} + '.jpg', title='Enlarge', height='100px'"
+                                 alt="Alt" src="../../static/images/cars/1.jpg"/>
+                        </a>
+                    </div>
+                </div>
+            </th:block>
+
+
+            <!-- Load new photo -->
+
+            <div class="row">
+                <!--        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 col-xl-10">-->
+                <div class="row">
+                    <h4> Upload new photo:</h4>
+                </div>
+                <form method="POST" enctype="multipart/form-data" action="/carsad/photo-upload?adid=0"
+                      th:action="@{/carsad/photo-upload(adid=${adid})}">
+                    <!--<th:block th:if="${adid > 0}">
+                        <input type="hidden" th:field="*{adid}"/>
+                    </th:block>-->
+                    <div class="col-12">
+                        <input type="file" name="file"/>
+                    </div>
+                    <div class="col-12">
+                        <input type="submit" class="btn btn-info btn-sm" value="Upload"/>
+                    </div>
+                </form>
+            </div>
         </div>
-        <form method="POST" enctype="multipart/form-data" action="/carsad/photo-upload?adid=0"
-              th:action="@{/carsad/photo-upload(adid=${adid})}">
-            <!--<th:block th:if="${adid > 0}">
-                <input type="hidden" th:field="*{adid}"/>
-            </th:block>-->
-            <div class="col-12">
-                <input type="file" name="file"/>
-            </div>
-            <div class="col-12">
-                <input type="submit" class="btn btn-info btn-sm" value="Upload"/>
-            </div>
-        </form>
+
+
+        <!-- Big photo -->
+
+        <div class="col-8">
+            <th:block th:if="${photoid > 0}">
+                <img th:attr="src='/img/' + ${photoid} + '.jpg', title='Big photo', height='600px'"
+                     alt="Alt" src="../../static/images/cars/1.jpg"/>
+            </th:block>
+        </div>
+
     </div>
 
-    <div class="row">
-        <th:block th:if="${adid > 0}">
-            <div th:each="vCarsPhoto : ${carsPhotos}">
-                <div class="col-2">
-                    <img th:attr="src='/images/cars/' + ${vCarsPhoto.getID()} + '.jpg', title='Enlarge',with='100px', height='100px'"
-                         alt="Alt" src="../../static/images/cars/1.jpg"/>
-                </div>
-            </div>
-        </th:block>
-    </div>
 
     <div class="row">
         <div class="col-12">

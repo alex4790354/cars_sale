@@ -1,5 +1,7 @@
 package com.job4j.cars.service;
 
+import com.job4j.cars.entity.CarsAd;
+import com.job4j.cars.entity.CarsPhoto;
 import com.job4j.cars.entity.FileMetaData;
 import com.job4j.cars.exception.FileStorageException;
 import com.job4j.cars.utils.UploadFileProperties;
@@ -26,19 +28,41 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.List;
 
+
 @Service("fileStorageService")
 public class FileStorageServiceImpl implements FileStorageService {
 
     private static final Logger LOG = LoggerFactory.getLogger(FileStorageServiceImpl.class);
 
-    @Autowired
-    UploadFileProperties uploadFileProperties;
+
+    private UploadFileProperties uploadFileProperties;
+    private CarsPhotoService carsPhotoService;
+    private CarsAdsService carsAdsService;
+
+    public FileStorageServiceImpl(CarsPhotoService carsPhotoService, UploadFileProperties uploadFileProperties,
+                                  CarsAdsService carsAdsService) {
+        this.uploadFileProperties = uploadFileProperties;
+        this.carsPhotoService = carsPhotoService;
+        this.carsAdsService = carsAdsService;
+    }
 
     @Override
-    public FileMetaData store(MultipartFile file) throws FileStorageException {
+    public FileMetaData store(MultipartFile file, int theAdId) throws FileStorageException {
 
         //Normalize the path by suppressing sequences like "path/.." and inner simple dots.
-        String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+        String fileName; // = StringUtils.cleanPath(file.getOriginalFilename());
+
+        //We should replace it by new file name: (cars_photo.id + .jpg)
+        CarsPhoto carsPhoto = new CarsPhoto(theAdId);
+        carsPhotoService.save(carsPhoto);
+        int photoId = carsPhoto.getID();
+        fileName = String.format("%d.jpg", photoId);
+        CarsAd carsAd = carsAdsService.findById(theAdId);
+        if (carsAd.getPhotoId() == 0) {
+            carsAd.setPhotoId(photoId);
+            carsAdsService.save(carsAd);
+        }
+
         try {
             // we can add additional file validation to discard invalid files
             Path uploadDir = getUploadDirLocation().resolve(fileName);
@@ -104,7 +128,7 @@ public class FileStorageServiceImpl implements FileStorageService {
      * @return Path
      */
     private Path getUploadDirLocation() {
-        return Paths.get(uploadFileProperties.getUploadDir()).toAbsolutePath().normalize();
+        return Paths.get(uploadFileProperties.getUploadPath()).toAbsolutePath().normalize();
     }
 
     /**

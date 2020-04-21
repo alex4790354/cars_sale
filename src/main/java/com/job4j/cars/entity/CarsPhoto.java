@@ -22,6 +22,10 @@ public class CarsPhoto {
     public CarsPhoto() {
     }
 
+    public CarsPhoto(int adId) {
+        this.adId = adId;
+    }
+
     public CarsPhoto(int adId, CarsAd carsAd) {
         this.adId = adId;
         this.carsAd = carsAd;

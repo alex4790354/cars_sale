@@ -144,18 +144,69 @@ INSERT INTO cars_ad(cars_brand_id, cars_model_id, cars_body_type_id, cars_transm
 
 ALTER TABLE cars_photo ADD CONSTRAINT cars_photo_fk1  FOREIGN KEY  (ad_id) REFERENCES cars_ad(id);
 
-INSERT INTO cars_photo(ad_id) VALUES(1);
-INSERT INTO cars_photo(ad_id) VALUES(1);
-INSERT INTO cars_photo(ad_id) VALUES(1);
-INSERT INTO cars_photo(ad_id) VALUES(2);
-INSERT INTO cars_photo(ad_id) VALUES(2);
+INSERT INTO cars_photo(id, ad_id) VALUES(1,1);
+INSERT INTO cars_photo(id, ad_id) VALUES(2,1);
+INSERT INTO cars_photo(id, ad_id) VALUES(3,1);
+INSERT INTO cars_photo(id, ad_id) VALUES(4,2);
+INSERT INTO cars_photo(id, ad_id) VALUES(5,2);
+INSERT INTO cars_photo(id, ad_id) VALUES(6,2);
+INSERT INTO cars_photo(id, ad_id) VALUES(7,2);
+INSERT INTO cars_photo(id, ad_id) VALUES(8,2);
+INSERT INTO cars_photo(id, ad_id) VALUES(9,2);
+INSERT INTO cars_photo(id, ad_id) VALUES(10,3);
+INSERT INTO cars_photo(id, ad_id) VALUES(11,3);
+INSERT INTO cars_photo(id, ad_id) VALUES(12,3);
+INSERT INTO cars_photo(id, ad_id) VALUES(13,3);
+INSERT INTO cars_photo(id, ad_id) VALUES(14,3);
+INSERT INTO cars_photo(id, ad_id) VALUES(15,3);
+INSERT INTO cars_photo(id, ad_id) VALUES(16,8);
+INSERT INTO cars_photo(id, ad_id) VALUES(17,8);
+INSERT INTO cars_photo(id, ad_id) VALUES(18,8);
+INSERT INTO cars_photo(id, ad_id) VALUES(19,8);
+INSERT INTO cars_photo(id, ad_id) VALUES(20,7);
+INSERT INTO cars_photo(id, ad_id) VALUES(21,7);
+INSERT INTO cars_photo(id, ad_id) VALUES(22,7);
+INSERT INTO cars_photo(id, ad_id) VALUES(23,7);
+INSERT INTO cars_photo(id, ad_id) VALUES(24,7);
+INSERT INTO cars_photo(id, ad_id) VALUES(25,9);
+INSERT INTO cars_photo(id, ad_id) VALUES(26,9);
+INSERT INTO cars_photo(id, ad_id) VALUES(27,9);
+INSERT INTO cars_photo(id, ad_id) VALUES(28,9);
+INSERT INTO cars_photo(id, ad_id) VALUES(29,9);
+INSERT INTO cars_photo(id, ad_id) VALUES(30,9);
+INSERT INTO cars_photo(id, ad_id) VALUES(31,4);
+INSERT INTO cars_photo(id, ad_id) VALUES(32,4);
+INSERT INTO cars_photo(id, ad_id) VALUES(33,4);
+INSERT INTO cars_photo(id, ad_id) VALUES(34,4);
+INSERT INTO cars_photo(id, ad_id) VALUES(35,4);
+INSERT INTO cars_photo(id, ad_id) VALUES(36,4);
+INSERT INTO cars_photo(id, ad_id) VALUES(37,4);
+INSERT INTO cars_photo(id, ad_id) VALUES(38,6);
+INSERT INTO cars_photo(id, ad_id) VALUES(39,6);
+INSERT INTO cars_photo(id, ad_id) VALUES(40,6);
+INSERT INTO cars_photo(id, ad_id) VALUES(41,6);
+INSERT INTO cars_photo(id, ad_id) VALUES(42,6);
+INSERT INTO cars_photo(id, ad_id) VALUES(43,6);
+INSERT INTO cars_photo(id, ad_id) VALUES(44,5);
+INSERT INTO cars_photo(id, ad_id) VALUES(45,5);
+INSERT INTO cars_photo(id, ad_id) VALUES(46,5);
+INSERT INTO cars_photo(id, ad_id) VALUES(47,5);
+INSERT INTO cars_photo(id, ad_id) VALUES(48,5);
 
-UPDATE cars_ad SET photo_id = 1 WHERE id = 1;
-UPDATE cars_ad SET photo_id = 5 WHERE id = 2;
+
+update cars_ad SET photo_id = 1  WHERE id = 1;
+update cars_ad SET photo_id = 4  WHERE id = 2;
+update cars_ad SET photo_id = 10 WHERE id = 3;
+update cars_ad SET photo_id = 31 WHERE id = 4;
+update cars_ad SET photo_id = 44 WHERE id = 5;
+update cars_ad SET photo_id = 38 WHERE id = 6;
+update cars_ad SET photo_id = 20 WHERE id = 7;
+update cars_ad SET photo_id = 16 WHERE id = 8;
+update cars_ad SET photo_id = 25 WHERE id = 9;
 
 
 
-CREATE TABLE cars_ad_heating_details (
+/*CREATE TABLE cars_ad_heating_details (
     id              SERIAL,
     add_id          INTEGER REFERENCES cars_ad(id),
     cars_heating_id INTEGER REFERENCES cars_heating(id),
@@ -182,7 +233,7 @@ INSERT INTO cars_ad_heating_details (add_id, cars_heating_id) VALUES (8, 1);
 INSERT INTO cars_ad_heating_details (add_id, cars_heating_id) VALUES (8, 2);
 INSERT INTO cars_ad_heating_details (add_id, cars_heating_id) VALUES (8, 4);
 INSERT INTO cars_ad_heating_details (add_id, cars_heating_id) VALUES (9, 1);
-INSERT INTO cars_ad_heating_details (add_id, cars_heating_id) VALUES (9, 4);
+INSERT INTO cars_ad_heating_details (add_id, cars_heating_id) VALUES (9, 4);*/
 
 
 

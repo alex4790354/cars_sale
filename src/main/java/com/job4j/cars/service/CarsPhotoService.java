@@ -12,9 +12,12 @@ public interface CarsPhotoService {
 	public List<CarsPhoto> findByAdId(int theAdId);
 	
 	public CarsPhoto findById(int theId);
+
+	//public CarsPhoto createNewPhoto(int pAdId);
 	
 	public void save(CarsPhoto theCarsPhoto);
 	
 	public void deleteById(int theId);
+
 	
 }

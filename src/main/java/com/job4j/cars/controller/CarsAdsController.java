@@ -1,14 +1,10 @@
 package com.job4j.cars.controller;
 
-import com.job4j.cars.entity.CarsAd;
-import com.job4j.cars.entity.CarsBrand;
-import com.job4j.cars.entity.CarsTransmission;
+import com.job4j.cars.entity.*;
 import com.job4j.cars.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @Controller
 @RequestMapping("/carsad")
@@ -29,13 +25,13 @@ public class CarsAdsController {
 							 CarsTransmissionService pCarsTransmissionService,
 							 CarsEngineTypeService pCarsEngineTypeService,
 							 CarsDriveUnitService pCarsDriveUnitService) {
-		carsAdsService = pCarsAdsService;
-		carsBrandService = pCarsBrandService;
-		carsModelService = pCarsModelService;
-		carsBodyTypeService = pCarsBodyTypeService;
-		carsTransmissionService = pCarsTransmissionService;
-		carsEngineTypeService = pCarsEngineTypeService;
-		carsDriveUnitService = pCarsDriveUnitService;
+		this.carsAdsService = pCarsAdsService;
+		this.carsBrandService = pCarsBrandService;
+		this.carsModelService = pCarsModelService;
+		this.carsBodyTypeService = pCarsBodyTypeService;
+		this.carsTransmissionService = pCarsTransmissionService;
+		this.carsEngineTypeService = pCarsEngineTypeService;
+		this.carsDriveUnitService = pCarsDriveUnitService;
 	}
 	
 	// add mapping for "/list"

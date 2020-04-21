@@ -56,6 +56,13 @@ public class CarsPhotoServiceImpl implements CarsPhotoService {
         return vCarsPhoto;
     }
 
+    /*@Override
+    public CarsPhoto createNewPhoto(int pAdId) {
+        CarsPhoto carsPhoto = new CarsPhoto(pAdId);
+        carsPhotoRepository.save(carsPhoto);
+        return carsPhoto;
+    }*/
+
     @Override
     public void save(CarsPhoto pCarsPhoto) {
         carsPhotoRepository.save(pCarsPhoto);
